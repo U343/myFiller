@@ -30,7 +30,7 @@ int		main(void)
 {
 	//read_start();
 	//read_map_size();
-	ft_putstr("<got (X): [1, 1]");
-	ft_putstr("<got (X): [1, 1]");
+	ft_putstr("1 1\n");
+	ft_putstr("1 1\n");
 	return (0);
 }
