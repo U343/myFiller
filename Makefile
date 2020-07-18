@@ -18,7 +18,9 @@ OBJ_PATH = ./obj/
 INC_PATH = ./includes/ $(LIB_PATH)
 
 SRC_FILES = main.c \
-			get_next_line.c
+			get_next_line.c \
+			write_trace.c
+
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 FLAGS = -Wall -Wextra -Werror
