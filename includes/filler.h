@@ -6,8 +6,22 @@
 #include "../libft/libft.h"
 #include "get_next_line.h"
 /*
-**-----------------------------------Struct-------------------------------------
+**-----------------------------------Structs------------------------------------
 */
+
+typedef struct			s_map
+{
+	int					n;
+	int 				m;
+	char				**map;
+}						t_map;
+
+typedef struct			s_token
+{
+	int					n;
+	int 				m;
+	char				**token;
+}						t_token;
 
 
 /*
@@ -17,14 +31,14 @@
 **Trace functions
 */
 
-FILE						*open_file();
-void						close_file(FILE *fp);
-int							write_trace(FILE *fp, char *str);
+FILE					*open_file();
+void					close_file(FILE *fp);
+int						write_trace(FILE *fp, char *str);
 
 /*
 **Parse functions
 */
 
-int							read_map(int row, FILE *fp);
+int						read_map(int row, FILE *fp);
 
 #endif
