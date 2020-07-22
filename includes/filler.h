@@ -21,4 +21,10 @@ FILE						*open_file();
 void						close_file(FILE *fp);
 int							write_trace(FILE *fp, char *str);
 
+/*
+**Parse functions
+*/
+
+int							read_map(int row, FILE *fp);
+
 #endif

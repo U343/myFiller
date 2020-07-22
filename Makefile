@@ -6,7 +6,7 @@
 #    By: wanton <wanton@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/18 12:03:06 by wanton            #+#    #+#              #
-#    Updated: 2020/07/18 12:51:37 by wanton           ###   ########.fr        #
+#    Updated: 2020/07/22 14:37:26 by wanton           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ INC_PATH = ./includes/ $(LIB_PATH)
 
 SRC_FILES = main.c \
 			get_next_line.c \
-			write_trace.c
+			write_trace.c \
+			parse_map.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

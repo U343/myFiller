@@ -6,11 +6,17 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:02:49 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/18 15:51:06 by wanton           ###   ########.fr       */
+/*   Updated: 2020/07/22 14:34:46 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/filler.h"
+
+/*
+**Function open or create file "trace"
+ * 					Returned: FILE object if successful | NULL if file not
+ * 					created
+*/
 
 FILE	*open_file()
 {
@@ -30,7 +36,6 @@ FILE	*open_file()
 
 /*
 **This function (write_trace) write text into file.
-**Function to free memory allocated for str
  *
 **!!! And also this function add '\n' to END to text !!!
  *
@@ -44,14 +49,19 @@ int		write_trace(FILE *fp, char *str)
 
 	len = (int)ft_strlen(str) + 1;
 	if (!(res = ft_strnew(len)))
-		return (0);
+		return (-1);
 	res = ft_strcat(res, str);
 	res = ft_strcat(res, "\n");
 	fwrite(res, sizeof(char), len, fp);
-	free(str);
 	free(res);
-	return (1);
+	return (0);
 }
+
+/*
+**Just close file File
+ *
+ * I don't know why i created this function
+*/
 
 void	close_file(FILE *fp)
 {
