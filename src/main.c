@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/29 15:18:21 by wanton           ###   ########.fr       */
+/*   Updated: 2020/07/29 16:23:59 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ int		main(void)
 	FILE	*fp;
 	char	*str;
 	t_map	*map;
+	t_token *token;
 
 	if (!(map = init_map()))
+		return (0);
+	if (!(token = init_token()))
 		return (0);
 	fp = open_file();
 	str = ft_strdup("Player number:");
@@ -80,8 +83,11 @@ int		main(void)
 	read_map_size(map, fp);
 	
 	read_map(map, fp);
+	read_token(token, fp);
 	
 	close_file(fp);
+	free_map(&map);
+	free_token(&token);
 	ft_putstr("1 1\n");
 	ft_putstr("1 1\n");
 	return (0);

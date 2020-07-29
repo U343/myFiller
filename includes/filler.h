@@ -19,11 +19,10 @@ typedef struct			s_map
 
 typedef struct			s_token
 {
-	int					n;
-	int 				m;
+	int					m;
+	int 				n;
 	char				**token;
 }						t_token;
-
 
 /*
 **----------------------------------Functions-----------------------------------
@@ -41,17 +40,21 @@ int						write_trace(FILE *fp, char *str);
 */
 
 t_map					*init_map();
+t_token					*init_token();
 
 /*
 **Functions for free memory
 */
 
 void					free_buff(char **buff);
+void					free_token(t_token **token);
+void					free_map(t_map **map);
 
 /*
 **Parse functions
 */
 
 int						read_map(t_map *map, FILE *fp);
+int 					read_token(t_token *token, FILE *fp);
 
 #endif

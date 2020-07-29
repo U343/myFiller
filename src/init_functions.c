@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 13:58:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/29 15:10:49 by wanton           ###   ########.fr       */
+/*   Updated: 2020/07/29 15:25:18 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,21 @@ t_map		*init_map()
 	tmp->m = 0;
 	tmp->n = 0;
 	tmp->map = NULL;
+	return (tmp);
+}
+
+/*
+**This function init struct t_token
+*/
+
+t_token		*init_token()
+{
+	t_token		*tmp;
+	
+	if (!(tmp = (t_token *)malloc(sizeof(t_token))))
+		return (NULL);
+	tmp->m = 0;
+	tmp->n = 0;
+	tmp->token = NULL;
 	return (tmp);
 }
