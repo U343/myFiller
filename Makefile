@@ -20,7 +20,8 @@ INC_PATH = ./includes/ $(LIB_PATH)
 SRC_FILES = main.c \
 			get_next_line.c \
 			write_trace.c \
-			parse_map.c
+			parse_map.c \
+			init_functions.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

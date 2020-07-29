@@ -13,6 +13,7 @@ typedef struct			s_map
 {
 	int					n;
 	int 				m;
+	char				player;
 	char				**map;
 }						t_map;
 
@@ -36,9 +37,15 @@ void					close_file(FILE *fp);
 int						write_trace(FILE *fp, char *str);
 
 /*
+**Init functions
+*/
+
+t_map					*init_map();
+
+/*
 **Parse functions
 */
 
-int						read_map(int row, FILE *fp);
+int						read_map(t_map *map, FILE *fp);
 
 #endif
