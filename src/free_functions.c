@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_functions.c                                   :+:      :+:    :+:   */
+/*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 13:58:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/29 15:10:49 by wanton           ###   ########.fr       */
+/*   Created: 2020/07/29 15:16:35 by wanton            #+#    #+#             */
+/*   Updated: 2020/07/29 15:25:18 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-
 /*
-**This function init struct t_map
-**
-** player - symbol which we will play, default value is 'O'. Later can be
-** replace on 'X'
+**Free two-dimensional array
+ *
+ * I don't know why i created this function
 */
 
-t_map		*init_map()
+void	free_buff(char **buff)
 {
-	t_map	*tmp;
-
-	if (!(tmp = (t_map *)malloc(sizeof(t_map))))
-		return (NULL);
-	tmp->player = 'O';
-	tmp->m = 0;
-	tmp->n = 0;
-	tmp->map = NULL;
-	return (tmp);
+	int i;
+	
+	i = 0;
+	while (buff[i])
+		free(buff[i++]);
+	free(buff);
 }

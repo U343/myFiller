@@ -6,11 +6,11 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:02:49 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/22 14:34:46 by wanton           ###   ########.fr       */
+/*   Updated: 2020/07/29 15:19:01 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "filler.h"
 
 /*
 **Function open or create file "trace"
@@ -60,7 +60,7 @@ int		write_trace(FILE *fp, char *str)
 /*
 **Just close file File
  *
- * I don't know why i created this function
+** I don't know why i created this function
 */
 
 void	close_file(FILE *fp)

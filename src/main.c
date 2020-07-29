@@ -6,21 +6,11 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/29 15:09:43 by wanton           ###   ########.fr       */
+/*   Updated: 2020/07/29 15:18:21 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
-
-void	free_buff(char **buff)
-{
-	int i;
-
-	i = 0;
-	while (buff[i])
-		free(buff[i++]);
-	free(buff);
-}
+#include "filler.h"
 
 /*
 **Read first line and check symbol which we will play

@@ -6,7 +6,7 @@
 #    By: wanton <wanton@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/18 12:03:06 by wanton            #+#    #+#              #
-#    Updated: 2020/07/22 14:37:26 by wanton           ###   ########.fr        #
+#    Updated: 2020/07/29 14:07:07 by wanton           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRC_FILES = main.c \
 			get_next_line.c \
 			write_trace.c \
 			parse_map.c \
-			init_functions.c
+			init_functions.c \
+			free_functions.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

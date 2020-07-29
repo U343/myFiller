@@ -43,6 +43,12 @@ int						write_trace(FILE *fp, char *str);
 t_map					*init_map();
 
 /*
+**Functions for free memory
+*/
+
+void					free_buff(char **buff);
+
+/*
 **Parse functions
 */
 
