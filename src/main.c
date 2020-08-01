@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/29 16:23:59 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/01 13:18:09 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	read_start(t_map *map, FILE *fp)
 ** n - columns
 */
 
-void	read_map_size(t_map *map, FILE *fp)
+void	read_map_size(t_map *map)
 {
 	char	**buff;
 	char	*line;
@@ -50,13 +50,9 @@ void	read_map_size(t_map *map, FILE *fp)
 	map->m = ft_atoi(size1);
 	map->n = ft_atoi(size2);
 	
-	// traces
 	free_buff(buff);
-	write_trace(fp, line);
 	free(line);
-	write_trace(fp, size1);
 	free(size1);
-	write_trace(fp, size2);
 	free(size2);
 }
 
@@ -80,14 +76,21 @@ int		main(void)
 	str = ft_strdup("Map size:");
 	write_trace(fp, str);
 	free(str);
-	read_map_size(map, fp);
+	read_map_size(map);
+	char	*size1 = ft_itoa(map->m);
+	char	*size2 = ft_itoa(map->n);
+	write_trace(fp, size1);
+	write_trace(fp, size2);
+	free(size1);
+	free(size2);
+	
 	
 	read_map(map, fp);
 	read_token(token, fp);
 	
 	close_file(fp);
-	free_map(&map);
-	free_token(&token);
+	free_map(map);
+	free_token(token);
 	ft_putstr("1 1\n");
 	ft_putstr("1 1\n");
 	return (0);

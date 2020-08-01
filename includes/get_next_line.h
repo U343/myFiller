@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.h                                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
+/*   By: thgiraud <thgiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 12:27:11 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/15 15:17:50 by wanton           ###   ########.fr       */
+/*   Created: 2016/12/27 14:54:35 by thgiraud          #+#    #+#             */
+/*   Updated: 2017/02/15 15:04:06 by thgiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# include "libft.h"
 # include <sys/types.h>
-# include <sys/stat.h>
+# include <sys/uio.h>
+# include <unistd.h>
 # include <fcntl.h>
-# include "../libft/libft.h"
+# include <stdlib.h>
+# define BUFF_SIZE 10
+# define ENDL '\n'
+# define END '\0'
 
-# define BUFF_SIZE 4
-
-int					get_next_line(const int fd, char **line);
+int		get_next_line(const int fd, char **line);
 
 #endif

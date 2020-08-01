@@ -1,102 +1,97 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
+/*   By: thgiraud <thgiraud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 12:20:25 by wanton            #+#    #+#             */
-/*   Updated: 2019/10/17 13:55:51 by wanton           ###   ########.fr       */
+/*   Created: 2017/01/30 08:42:48 by thgiraud          #+#    #+#             */
+/*   Updated: 2017/08/01 16:44:57 by thgiraud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static	t_list		*ft_lstnew_gnl(void const *con, size_t con_size)
+static int	endline(char *buff)
 {
-	t_list	*res;
+	int		count;
 
-	if (!(res = (t_list *)malloc(sizeof(t_list))))
-		return ((t_list *)NULL);
-	if (!con)
+	count = 0;
+	while (buff[count] != ENDL && buff[count])
+		count++;
+	if (buff[count] == ENDL)
 	{
-		res->content = NULL;
-		res->content_size = 0;
-		res->next = NULL;
-		return (res);
+		buff[count] = END;
+		return (count);
 	}
-	res->content = (void *)con;
-	res->content_size = con_size;
-	res->next = NULL;
-	return (res);
-}
-
-static	t_list		*determine_fd(int fd, t_list **st)
-{
-	t_list	*p;
-
-	p = *st;
-	while (p)
-	{
-		if ((int)p->content_size == fd)
-			return (p);
-		p = p->next;
-	}
-	if ((p = ft_lstnew_gnl("", fd)))
-	{
-		ft_lstadd(st, p);
-		return (p);
-	}
-	return (NULL);
-}
-
-static	int			read_n(int fd, char **tmp)
-{
-	int		ret;
-	char	buf[BUFF_SIZE + 1];
-	char	*tr;
-
-	tr = NULL;
-	while ((ret = read(fd, buf, BUFF_SIZE)))
-	{
-		tr = *tmp;
-		buf[ret] = '\0';
-		if (!(*tmp = ft_strjoin(*tmp, buf)))
-		{
-			return (-1);
-		}
-		if (*tr)
-			free(tr);
-		if (ft_strchr(buf, '\n'))
-			break ;
-	}
-	return (ret);
-}
-
-int					get_next_line(const int fd, char **line)
-{
-	static	t_list	*storage_fd;
-	t_list			*p;
-	char			*tmp;
-	int				res;
-
-	if (fd < 0 || !line || BUFF_SIZE <= 0 || read(fd, NULL, 0) < 0 ||
-			!(p = determine_fd(fd, &storage_fd)))
+	else
 		return (-1);
-	tmp = (char *)p->content;
-	if ((res = read_n(fd, &tmp) <= 0) && (!tmp || !*tmp))
+}
+
+static char	*join(char *buff, char *tab)
+{
+	size_t	i;
+	size_t	j;
+	char	*ptr;
+
+	i = 0;
+	j = 0;
+	if (buff)
+		i = ft_strlen(buff);
+	if (tab)
+		j = ft_strlen(tab);
+	ptr = (char *)malloc(sizeof(*ptr) * (i + j + 1));
+	ft_memcpy(ptr, buff, i);
+	ft_memcpy(ptr + i, tab, j);
+	ptr[i + j] = '\0';
+	free(buff);
+	ft_bzero(tab, BUFF_SIZE + 1);
+	return (ptr);
+}
+
+static int	verif(char **buff, char **tab, char **line)
+{
+	char	*ptr;
+	int		final;
+
+	*buff = join(*buff, *tab);
+	final = endline(*buff);
+	if (final > -1)
 	{
-		return ((res < 0) ? -1 : 0);
+		*line = ft_strdup(*buff);
+		ptr = *buff;
+		*buff = ft_strdup(*buff + final + 1);
+		free(ptr);
+		return (1);
 	}
-	res = ft_strlen(tmp);
-	if ((p->content = ft_strchr(tmp, '\n')))
-	{
-		res = (int)((char *)p->content - tmp);
-		*(char *)p->content == '\n' ? p->content++ : p->content;
-		p->content = ft_strdup(p->content);
-	}
-	if (!(*line = ft_strsub(tmp, 0, res)))
+	return (0);
+}
+
+int			get_next_line(int const fd, char **line)
+{
+	static char *buff[12000];
+	char		*tmp;
+	int			result;
+	int			ret;
+
+	tmp = ft_strnew(BUFF_SIZE);
+	if (!line || BUFF_SIZE <= 0 || fd < 0 || (ret = read(fd, tmp, 0)) < 0)
 		return (-1);
-	free(tmp);
-	return (1);
+	while ((ret = read(fd, tmp, BUFF_SIZE)) > 0)
+	{
+		result = verif(&buff[fd], &tmp, line);
+		free(tmp);
+		if (result == 1)
+			return (1);
+		tmp = ft_strnew(BUFF_SIZE);
+	}
+	if ((result = verif(&buff[fd], &tmp, line)))
+		return (1);
+	else if (ft_strlen(buff[fd]) > 0)
+	{
+		*line = ft_strdup(buff[fd]);
+		ft_strdel(&buff[fd]);
+		return (1);
+	}
+	return (result);
 }

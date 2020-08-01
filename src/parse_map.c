@@ -57,7 +57,7 @@ int		read_map(t_map *map, FILE *fp) // fp для трейсов потом на�
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
-static void	read_token_size(t_token *token, FILE *fp)
+static void	read_token_size(t_token *token)
 {
 	char	*line;
 	char	**buff;
@@ -71,13 +71,9 @@ static void	read_token_size(t_token *token, FILE *fp)
 	token->m = ft_atoi(size1);
 	token->n = ft_atoi(size2);
 	
-	// traces
 	free_buff(buff);
-	write_trace(fp, line);
 	free(line);
-	write_trace(fp, size1);
 	free(size1);
-	write_trace(fp, size2);
 	free(size2);
 }
 
@@ -95,9 +91,15 @@ int 	read_token(t_token *token, FILE *fp) //fp для трейсов потом 
 	write_trace(fp, str);
 	free(str);
 	
-	read_token_size(token, fp);
+	read_token_size(token);
+	char	*size1 = ft_itoa(token->m);
+	char	*size2 = ft_itoa(token->n);
+	write_trace(fp, size1);
+	write_trace(fp, size2);
+	free(size1);
+	free(size2);
 	
-	str = ft_strdup("Map:"); // trace. DELETE later
+	str = ft_strdup("Token: "); // trace. DELETE later
 	write_trace(fp, str);
 	free(str);
 	

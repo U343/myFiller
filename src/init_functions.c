@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 13:58:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/29 15:25:18 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/01 13:01:23 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_map		*init_map()
 	tmp->m = 0;
 	tmp->n = 0;
 	tmp->map = NULL;
+	tmp->hot_map = NULL;
 	return (tmp);
 }
 

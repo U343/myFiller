@@ -15,6 +15,7 @@ typedef struct			s_map
 	int 				m;
 	char				player;
 	char				**map;
+	int					**hot_map;
 }						t_map;
 
 typedef struct			s_token
@@ -47,8 +48,8 @@ t_token					*init_token();
 */
 
 void					free_buff(char **buff);
-void					free_token(t_token **token);
-void					free_map(t_map **map);
+void					free_token(t_token *token);
+void					free_map(t_map *map);
 
 /*
 **Parse functions
