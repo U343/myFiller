@@ -22,7 +22,8 @@ SRC_FILES = main.c \
 			write_trace.c \
 			parse_map.c \
 			init_functions.c \
-			free_functions.c
+			free_functions.c \
+			create_hot_map.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

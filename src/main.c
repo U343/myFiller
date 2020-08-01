@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/01 13:18:09 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/01 16:26:01 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	read_start(t_map *map, FILE *fp)
 
 	get_next_line(0, &line);
 	if ((ft_strstr(line, "p2")))
+	{
 		map->player = 'X';
+		map->enemy = 'O';
+	}
 	write_trace(fp, line);
 	free(line);
 }
@@ -87,6 +90,7 @@ int		main(void)
 	
 	read_map(map, fp);
 	read_token(token, fp);
+	create_hot_map(map, fp);
 	
 	close_file(fp);
 	free_map(map);
