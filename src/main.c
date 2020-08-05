@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/01 16:26:01 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/05 16:32:32 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** 'O' is default for init_functions()
 */
 
-void	read_start(t_map *map, FILE *fp)
+void	read_start(t_filler *map)
 {
 	char *line;
 
@@ -28,74 +28,23 @@ void	read_start(t_map *map, FILE *fp)
 		map->player = 'X';
 		map->enemy = 'O';
 	}
-	write_trace(fp, line);
 	free(line);
-}
-
-/*
-**Read map size and set parameters n and m for t_map
- *
-** m - rows
-** n - columns
-*/
-
-void	read_map_size(t_map *map)
-{
-	char	**buff;
-	char	*line;
-	char	*size1;
-	char	*size2;
-
-	get_next_line(0, &line);
-	buff = ft_strsplit(line, ' ');
-	size1 = ft_strdup(buff[1]);
-	size2 = ft_strdup(buff[2]);
-	map->m = ft_atoi(size1);
-	map->n = ft_atoi(size2);
-	
-	free_buff(buff);
-	free(line);
-	free(size1);
-	free(size2);
 }
 
 int		main(void) 
 {
-	FILE	*fp;
-	char	*str;
-	t_map	*map;
-	t_token *token;
+	char		*str;
+	t_filler	*filler;
 
-	if (!(map = init_map()))
-		return (0);
-	if (!(token = init_token()))
-		return (0);
-	fp = open_file();
-	str = ft_strdup("Player number:");
-	write_trace(fp, str);
-	free(str);
-	read_start(map, fp);
+	if (!(filler = init_struct()))
+		return (1);
+	read_start(filler);
 	
-	str = ft_strdup("Map size:");
-	write_trace(fp, str);
-	free(str);
-	read_map_size(map);
-	char	*size1 = ft_itoa(map->m);
-	char	*size2 = ft_itoa(map->n);
-	write_trace(fp, size1);
-	write_trace(fp, size2);
-	free(size1);
-	free(size2);
+	read_map(filler->map, 4);
 	
 	
-	read_map(map, fp);
-	read_token(token, fp);
-	create_hot_map(map, fp);
-	
-	close_file(fp);
-	free_map(map);
-	free_token(token);
-	ft_putstr("1 1\n");
+	read_map(filler->token, 0);
+	free_filler(filler);
 	ft_putstr("1 1\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 15:16:35 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/01 13:31:48 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/05 16:28:42 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,9 @@ void	free_map(t_map *map)
 	free(map);
 }
 
-void	free_token(t_token *token)
+void	free_filler(t_filler *filler)
 {
-	int		i;
-
-	i = 0;
-	while (i < token->m)
-		free(token->token[i++]);
-	free(token->token);
-	free(token);
+	free_map(filler->map);
+	free_map(filler->token);
+	free(filler);
 }

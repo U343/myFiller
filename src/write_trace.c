@@ -72,6 +72,7 @@ void	close_file(FILE *fp)
 **Just write traces for hot_map
 */
 
+/*
 void		write_trace_hot_map(t_map *map, FILE *fp)
 {
 	int		i;
@@ -93,3 +94,4 @@ void		write_trace_hot_map(t_map *map, FILE *fp)
 		fwrite("\n", sizeof(char), 1, fp);
 	}
 }
+*/

@@ -13,18 +13,17 @@ typedef struct			s_map
 {
 	int					n;
 	int 				m;
-	char				player;
-	char				enemy;
 	char				**map;
-	int					**hot_map;
 }						t_map;
 
-typedef struct			s_token
+typedef struct			s_filler
 {
-	int					m;
-	int 				n;
-	char				**token;
-}						t_token;
+	char				player;
+	char				enemy;
+	t_map				*map;
+	t_map				*token;
+	int					**hot_map;
+}						t_filler;
 
 /*
 **----------------------------------Functions-----------------------------------
@@ -42,24 +41,21 @@ void					write_trace_hot_map(t_map *map, FILE *fp);
 **Init functions
 */
 
-t_map					*init_map();
-t_token					*init_token();
-int						init_hot_map(t_map *map);
+t_filler				*init_struct();
+int						init_hot_map(t_filler *map);
 
 /*
 **Functions for free memory
 */
 
 void					free_buff(char **buff);
-void					free_token(t_token *token);
 void					free_map(t_map *map);
+void					free_filler(t_filler *filler);
 
 /*
 **Parse functions
 */
 
-int						read_map(t_map *map, FILE *fp);
-int 					read_token(t_token *token, FILE *fp);
-int						create_hot_map(t_map *map, FILE *fp);
+int						read_map(t_map *map, int offset);
 
 #endif

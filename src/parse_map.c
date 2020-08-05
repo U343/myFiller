@@ -6,118 +6,73 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:05:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/07/29 15:53:48 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/05 16:23:14 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
 /*
-**This function read map.
+**Read map size and set parameters n and m for t_map
  *
-** - first gnl() read and dell string with numbers
-** - str + 4 - it is necessary to skip numbers at the beginning of str
- *
-**					Returned: 0 if successful | -1 if error with malloc
-*/
-
-int		read_map(t_map *map, FILE *fp) // fp для трейсов потом надо УДАЛИТЬ
-{
-	int 	i;
-	char	*str;
-
-	str = ft_strdup("Map:"); // trace. DELETE later
-	write_trace(fp, str);
-	free(str);
-	
-	i = 0;
-	if (!(map->map = (char **)malloc(sizeof(char *) * map->m)))
-		return (-1);
-	get_next_line(0, &str);
-	free(str);
-	while (i < map->m)
-	{
-		if (get_next_line(0, &str) == -1)
-			return (-1);
-		if (!(map->map[i++] = ft_strdup(str + 4)))
-			return (-1);
-		free(str);
-	}
-	// trace. DELETE later
-	i = 0;
-	while (i < map->m)
-		write_trace(fp, map->map[i++]);
-	return (0);
-}
-
-/*
-**Read size of token and set variables m and n for structs t_token
 ** m - rows
 ** n - columns
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
-static void	read_token_size(t_token *token)
+int		read_map_size(t_map *map)
 {
-	char	*line;
 	char	**buff;
-	char	*size1;
-	char	*size2;
+	char	*line;
 
-	get_next_line(0, &line);
-	buff = ft_strsplit(line, ' ');
-	size1 = ft_strdup(buff[1]);
-	size2 = ft_strdup(buff[2]);
-	token->m = ft_atoi(size1);
-	token->n = ft_atoi(size2);
+	if (get_next_line(0, &line) == -1)
+		return (-1);
+	if (!(buff = ft_strsplit(line, ' ')))
+		return (-1);
+	map->m = ft_atoi(buff[1]);
+	map->n = ft_atoi(buff[2]);
 	
 	free_buff(buff);
 	free(line);
-	free(size1);
-	free(size2);
+	return (0);
 }
 
 /*
-**This function read token.
+**This function read map and read token.
+ *
+** int offset - this variable use when we read main map
+** if we read token offset = 0
+** if we read main map offset = 4, because first line with numbers not use for
+** algorithm and firstly 4 number on another string also not use
+ *
+** gnl() into (if (offset)) read and dell string with numbers
+** str + offset - it is necessary to skip numbers at the beginning of str
+ *
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
-int 	read_token(t_token *token, FILE *fp) //fp для трейсов потом надо УДАЛИТЬ
+int		read_map(t_map *map, int offset)
 {
-	char	*str;
 	int 	i;
+	char	*str;
 
-	str = ft_strdup("Size token:"); // trace. DELETE later
-	write_trace(fp, str);
-	free(str);
-	
-	read_token_size(token);
-	char	*size1 = ft_itoa(token->m);
-	char	*size2 = ft_itoa(token->n);
-	write_trace(fp, size1);
-	write_trace(fp, size2);
-	free(size1);
-	free(size2);
-	
-	str = ft_strdup("Token: "); // trace. DELETE later
-	write_trace(fp, str);
-	free(str);
-	
 	i = 0;
-	if (!(token->token = (char **)malloc(sizeof(char *) * token->m)))
+	read_map_size(map);
+	if (!(map->map = (char **)malloc(sizeof(char *) * map->m)))
 		return (-1);
-	while (i < token->m)
+	if (offset)
 	{
 		if (get_next_line(0, &str) == -1)
 			return (-1);
-		if (!(token->token[i] = ft_strdup(str)))
-			return (-1);
-		i++;
 		free(str);
 	}
-	// trace. DELETE later
-	i = 0;
-	while (i < token->m)
-		write_trace(fp, token->token[i++]);
+	while (i < map->m)
+	{
+		if (get_next_line(0, &str) == -1)
+			return (-1);
+		if (!(map->map[i++] = ft_strdup(str + offset)))
+			return (-1);
+		free(str);
+	}
 	return (0);
 }

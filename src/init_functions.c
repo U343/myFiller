@@ -12,42 +12,43 @@
 
 #include "filler.h"
 
+/*
+**This function init struct t_man
+**struct use for a token and for the main map
+*/
+
+static t_map		*init_map()
+{
+	t_map		*tmp;
+	
+	if (!(tmp = (t_map *)malloc(sizeof(t_map))))
+		return (NULL);
+	tmp->m = 0;
+	tmp->n = 0;
+	tmp->map = NULL;
+	return (tmp);
+}
 
 /*
-**This function init struct t_map
+**This function init struct t_filler, main struct
 **
 ** player - symbol which we will play, default value is 'O'. Later can be
 ** replace on 'X'
 */
 
-t_map		*init_map()
+t_filler		*init_struct()
 {
-	t_map	*tmp;
+	t_filler	*tmp;
 
-	if (!(tmp = (t_map *)malloc(sizeof(t_map))))
+	if (!(tmp = (t_filler *)malloc(sizeof(t_filler))))
+		return (NULL);
+	if (!(tmp->map = init_map()))
+		return (NULL);
+	if (!(tmp->token = init_map()))
 		return (NULL);
 	tmp->player = 'O';
 	tmp->enemy = 'X';
-	tmp->m = 0;
-	tmp->n = 0;
-	tmp->map = NULL;
 	tmp->hot_map = NULL;
-	return (tmp);
-}
-
-/*
-**This function init struct t_token
-*/
-
-t_token		*init_token()
-{
-	t_token		*tmp;
-	
-	if (!(tmp = (t_token *)malloc(sizeof(t_token))))
-		return (NULL);
-	tmp->m = 0;
-	tmp->n = 0;
-	tmp->token = NULL;
 	return (tmp);
 }
 
@@ -61,26 +62,26 @@ t_token		*init_token()
 ** 					Returned: 0 if successful | -1 if error with malloc
 */
 
-int			init_hot_map(t_map *map)
+int			init_hot_map(t_filler *map)
 {
 	int 	i;
 	int 	j;
 
 	i = -1;
-	if (!(map->hot_map = (int **)malloc(sizeof(int *) * map->m)))
+	if (!(map->hot_map = (int **)malloc(sizeof(int *) * map->map->m)))
 		return (-1);
-	while (++i < map->m)
+	while (++i < map->map->m)
 	{
 		j = -1;
-		if (!(map->hot_map[i] = (int *)malloc(sizeof(int) * map->n)))
+		if (!(map->hot_map[i] = (int *)malloc(sizeof(int) * map->map->n)))
 			return (-1);
-		while (++j < map->n)
+		while (++j < map->map->n)
 		{
-			if (map->map[i][j] == map->player
-				|| map->map[i][j] == map->player + 32)
+			if (map->map->map[i][j] == map->player
+				|| map->map->map[i][j] == map->player + 32)
 				map->hot_map[i][j] = -2;
-			else if (map->map[i][j] == map->enemy
-				|| map->map[i][j] == map->enemy + 32)
+			else if (map->map->map[i][j] == map->enemy
+				|| map->map->map[i][j] == map->enemy + 32)
 				map->hot_map[i][j] = 0;
 			else
 				map->hot_map[i][j] = -1;
