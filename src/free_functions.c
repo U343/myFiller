@@ -33,7 +33,7 @@ void	free_map(t_map *map)
 	int		i;
 
 	i = 0;
-	while (i < map->m)
+	while (i < map->y)
 		free(map->map[i++]);
 	free(map->map);
 	free(map);

@@ -15,24 +15,22 @@
 /*
 **Read map size and set parameters n and m for t_map
  *
-** m - rows
-** n - columns
+** String look like this - "Plateau 14 30:"
+** 14 - rows; 30 - columns
+ *
+** ft_strchr - find first symbol number in string
+** ft_strrchr - find last symbol number in string
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
 int		read_map_size(t_map *map)
 {
-	char	**buff;
 	char	*line;
 
 	if (get_next_line(0, &line) == -1)
 		return (-1);
-	if (!(buff = ft_strsplit(line, ' ')))
-		return (-1);
-	map->m = ft_atoi(buff[1]);
-	map->n = ft_atoi(buff[2]);
-	
-	free_buff(buff);
+	map->y = ft_atoi(ft_strchr(line, SPACE_SYMBOL));
+	map->x = ft_atoi(ft_strrchr(line, SPACE_SYMBOL));
 	free(line);
 	return (0);
 }
@@ -58,7 +56,7 @@ int		read_map(t_map *map, int offset)
 
 	i = 0;
 	read_map_size(map);
-	if (!(map->map = (char **)malloc(sizeof(char *) * map->m)))
+	if (!(map->map = (char **)malloc(sizeof(char *) * map->y)))
 		return (-1);
 	if (offset)
 	{
@@ -66,7 +64,7 @@ int		read_map(t_map *map, int offset)
 			return (-1);
 		free(str);
 	}
-	while (i < map->m)
+	while (i < map->y)
 	{
 		if (get_next_line(0, &str) == -1)
 			return (-1);

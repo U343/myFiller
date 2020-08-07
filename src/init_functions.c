@@ -23,8 +23,8 @@ static t_map		*init_map()
 	
 	if (!(tmp = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);
-	tmp->m = 0;
-	tmp->n = 0;
+	tmp->x = 0;
+	tmp->y = 0;
 	tmp->map = NULL;
 	return (tmp);
 }
@@ -46,8 +46,8 @@ t_filler		*init_struct()
 		return (NULL);
 	if (!(tmp->token = init_map()))
 		return (NULL);
-	tmp->player = 'O';
-	tmp->enemy = 'X';
+	tmp->player = FIRST_PLAYER_SYMBOL;
+	tmp->enemy = SECOND_PLAYER_SYMBOL;
 	tmp->hot_map = NULL;
 	return (tmp);
 }
@@ -62,29 +62,29 @@ t_filler		*init_struct()
 ** 					Returned: 0 if successful | -1 if error with malloc
 */
 
-int			init_hot_map(t_filler *map)
+int			init_hot_map(t_filler *filler)
 {
 	int 	i;
 	int 	j;
 
 	i = -1;
-	if (!(map->hot_map = (int **)malloc(sizeof(int *) * map->map->m)))
+	if (!(filler->hot_map = (int **)malloc(sizeof(int *) * filler->map->y)))
 		return (-1);
-	while (++i < map->map->m)
+	while (++i < filler->map->y)
 	{
 		j = -1;
-		if (!(map->hot_map[i] = (int *)malloc(sizeof(int) * map->map->n)))
+		if (!(filler->hot_map[i] = (int *)malloc(sizeof(int) * filler->map->x)))
 			return (-1);
-		while (++j < map->map->n)
+		while (++j < filler->map->x)
 		{
-			if (map->map->map[i][j] == map->player
-				|| map->map->map[i][j] == map->player + 32)
-				map->hot_map[i][j] = -2;
-			else if (map->map->map[i][j] == map->enemy
-				|| map->map->map[i][j] == map->enemy + 32)
-				map->hot_map[i][j] = 0;
+			if (filler->map->map[i][j] == filler->player
+				|| filler->map->map[i][j] == filler->player + 32)
+				filler->hot_map[i][j] = PLAYER_CELL_NUMBER;
+			else if (filler->map->map[i][j] == filler->enemy
+				|| filler->map->map[i][j] == filler->enemy + 32)
+				filler->hot_map[i][j] = EMPTY_CELL_NUMBER;
 			else
-				map->hot_map[i][j] = -1;
+				filler->hot_map[i][j] = ENEMY_CELL_NUMBER;
 		}
 	}
 	return (0);

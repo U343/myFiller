@@ -5,14 +5,15 @@
 
 #include "../libft/libft.h"
 #include "get_next_line.h"
+#include "constants.h"
 /*
 **-----------------------------------Structs------------------------------------
 */
 
 typedef struct			s_map
 {
-	int					n;
-	int 				m;
+	int					x;
+	int 				y;
 	char				**map;
 }						t_map;
 
@@ -35,14 +36,14 @@ typedef struct			s_filler
 FILE					*open_file();
 void					close_file(FILE *fp);
 int						write_trace(FILE *fp, char *str);
-void					write_trace_hot_map(t_map *map, FILE *fp);
+void					write_trace_hot_map(t_filler *filler, FILE *fp);
 
 /*
 **Init functions
 */
 
 t_filler				*init_struct();
-int						init_hot_map(t_filler *map);
+int						init_hot_map(t_filler *filler);
 
 /*
 **Functions for free memory

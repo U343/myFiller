@@ -72,21 +72,29 @@ void	close_file(FILE *fp)
 **Just write traces for hot_map
 */
 
-/*
-void		write_trace_hot_map(t_map *map, FILE *fp)
+
+void		write_trace_hot_map(t_filler *filler, FILE *fp)
 {
 	int		i;
 	int 	j;
 	int		len;
 	char	*str;
+	char	*size1;
+	char	*size2;
 
 	i = -1;
-	while (++i < map->m)
+	size1 = ft_itoa(filler->map->y);
+	size2 = ft_itoa(filler->map->x);
+	write_trace(fp, size1);
+	write_trace(fp, size2);
+	free(size1);
+	free(size2);
+	while (++i < filler->map->y)
 	{
-		j = 0;
-		while (j < map->n)
+		j = -1;
+		while (++j < filler->map->x)
 		{
-			str = ft_itoa(map->hot_map[i][j++]);
+			str = ft_itoa(filler->hot_map[i][j]);
 			len = ft_strlen(str);
 			fwrite(str, sizeof(char), len, fp);
 			free(str);
@@ -94,4 +102,4 @@ void		write_trace_hot_map(t_map *map, FILE *fp)
 		fwrite("\n", sizeof(char), 1, fp);
 	}
 }
-*/
+
