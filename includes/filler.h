@@ -58,5 +58,6 @@ void					free_filler(t_filler *filler);
 */
 
 int						read_map(t_map *map, int offset);
+void					create_hot_map(t_filler *filler);
 
 #endif

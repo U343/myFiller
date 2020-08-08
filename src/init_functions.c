@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 13:58:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/08 13:19:19 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/08 13:27:51 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int			init_hot_map(t_filler *filler)
 				filler->hot_map[i][j] = PLAYER_CELL_NUMBER;
 			else if (filler->map->map[i][j] == filler->enemy
 				|| filler->map->map[i][j] == (filler->enemy + 32))
-				filler->hot_map[i][j] = EMPTY_CELL_NUMBER;
-			else
 				filler->hot_map[i][j] = ENEMY_CELL_NUMBER;
+			else
+				filler->hot_map[i][j] = EMPTY_CELL_NUMBER;
 		}
 	}
 	return (0);

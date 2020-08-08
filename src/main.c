@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/08 13:27:51 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/08 13:31:23 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		main(void)
 	
 	read_map(filler->map, 4);
 	init_hot_map(filler);
+	create_hot_map(filler);
 	write_trace_hot_map(filler, fp);
 	close_file(fp);
 	
