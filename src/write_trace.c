@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:02:49 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/01 16:22:46 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/08 13:10:51 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,14 @@ void	close_file(FILE *fp)
 **Just write traces for hot_map
 */
 
-
 void		write_trace_hot_map(t_filler *filler, FILE *fp)
 {
 	int		i;
 	int 	j;
 	int		len;
 	char	*str;
-	char	*size1;
-	char	*size2;
 
 	i = -1;
-	size1 = ft_itoa(filler->map->y);
-	size2 = ft_itoa(filler->map->x);
-	write_trace(fp, size1);
-	write_trace(fp, size2);
-	free(size1);
-	free(size2);
 	while (++i < filler->map->y)
 	{
 		j = -1;
@@ -102,4 +93,3 @@ void		write_trace_hot_map(t_filler *filler, FILE *fp)
 		fwrite("\n", sizeof(char), 1, fp);
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 13:58:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/01 17:26:28 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/08 13:19:19 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,6 @@ t_filler		*init_struct()
 	return (tmp);
 }
 
-/*
-**This function init hot_map: allocated memory and fill her
- *
-** -1 - clear cell
-** -2 - player cell
-**  0 - enemy cell
- *
-** 					Returned: 0 if successful | -1 if error with malloc
-*/
-
 int			init_hot_map(t_filler *filler)
 {
 	int 	i;
@@ -78,10 +68,10 @@ int			init_hot_map(t_filler *filler)
 		while (++j < filler->map->x)
 		{
 			if (filler->map->map[i][j] == filler->player
-				|| filler->map->map[i][j] == filler->player + 32)
+				|| filler->map->map[i][j] == (filler->player + 32))
 				filler->hot_map[i][j] = PLAYER_CELL_NUMBER;
 			else if (filler->map->map[i][j] == filler->enemy
-				|| filler->map->map[i][j] == filler->enemy + 32)
+				|| filler->map->map[i][j] == (filler->enemy + 32))
 				filler->hot_map[i][j] = EMPTY_CELL_NUMBER;
 			else
 				filler->hot_map[i][j] = ENEMY_CELL_NUMBER;

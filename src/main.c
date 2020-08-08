@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/05 16:32:32 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/08 13:27:51 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,17 @@
 ** 'O' is default for init_functions()
 */
 
-int		read_start(t_filler *map)
+void	read_start(t_filler *map)
 {
 	char *line;
 
-	if (get_next_line(0, &line) == -1)
-		return (-1);
+	get_next_line(DESCRIPTOR, &line);
 	if ((ft_strstr(line, "p2")))
 	{
 		map->player = SECOND_PLAYER_SYMBOL;
 		map->enemy = FIRST_PLAYER_SYMBOL;
 	}
 	free(line);
-	return (0);
 }
 
 int		main(void) 
@@ -38,15 +36,16 @@ int		main(void)
 	t_filler	*filler;
 	FILE		*fp;
 
+	fp = open_file();
 	if (!(filler = init_struct()))
 		return (1);
 	read_start(filler);
 	
 	read_map(filler->map, 4);
 	init_hot_map(filler);
-	fp = open_file();
 	write_trace_hot_map(filler, fp);
 	close_file(fp);
+	
 	
 	read_map(filler->token, 0);
 	free_filler(filler);

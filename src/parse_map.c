@@ -6,20 +6,15 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:05:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/05 16:23:14 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/08 13:31:23 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
 /*
-**Read map size and set parameters n and m for t_map
+**Read map size and set parameters x and y for t_map
  *
-** String look like this - "Plateau 14 30:"
-** 14 - rows; 30 - columns
- *
-** ft_strchr - find first symbol number in string
-** ft_strrchr - find last symbol number in string
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
@@ -27,7 +22,7 @@ int		read_map_size(t_map *map)
 {
 	char	*line;
 
-	if (get_next_line(0, &line) == -1)
+	if (get_next_line(DESCRIPTOR, &line) == -1)
 		return (-1);
 	map->y = ft_atoi(ft_strchr(line, SPACE_SYMBOL));
 	map->x = ft_atoi(ft_strrchr(line, SPACE_SYMBOL));
@@ -54,21 +49,21 @@ int		read_map(t_map *map, int offset)
 	int 	i;
 	char	*str;
 
-	i = 0;
+	i = -1;
 	read_map_size(map);
 	if (!(map->map = (char **)malloc(sizeof(char *) * map->y)))
 		return (-1);
-	if (offset)
+	if (offset == 4)
 	{
-		if (get_next_line(0, &str) == -1)
+		if (get_next_line(DESCRIPTOR, &str) == -1)
 			return (-1);
 		free(str);
 	}
-	while (i < map->y)
+	while (++i < map->y)
 	{
-		if (get_next_line(0, &str) == -1)
+		if (get_next_line(DESCRIPTOR, &str) == -1)
 			return (-1);
-		if (!(map->map[i++] = ft_strdup(str + offset)))
+		if (!(map->map[i] = ft_strdup(str + offset)))
 			return (-1);
 		free(str);
 	}
