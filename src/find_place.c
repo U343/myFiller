@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 16:10:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/14 14:53:03 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/14 15:50:30 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,7 @@ static int 	check_place(t_filler *filler, int m, int n)
 		n = save_n;
 		while (++j < filler->token->x)
 		{
-			if (filler->token->map[i][j] == MAP_EMPTY_SYMBOL)
-			{
-				if (filler->map->map[m][n] == MAP_EMPTY_SYMBOL)
-					sum += filler->hot_map[m][n];
-				else
-					return (0);
-			}
-			else
+			if (filler->token->map[i][j] == TOKEN_FILLED_SYMBOL)
 			{
 				if (filler->hot_map[m][n] == PLAYER_CELL_NUMBER && flag == 1)
 					flag = 0;
@@ -74,7 +67,7 @@ void		find_place(t_filler *filler, int coords[2])
 		while (++j < (filler->map->x - filler->token->x + 1))
 		{
 			sum = check_place(filler, i, j);
-			if ((sum > 0) && (flag == 1 || sum < min) && i !=0 && j != 0)
+			if ((sum > 0) && (flag == 1 || sum < min))
 			{
 				flag = 0;
 				min = sum;
