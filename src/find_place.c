@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 16:10:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/14 14:46:30 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/14 14:53:03 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		find_place(t_filler *filler, int coords[2])
 		while (++j < (filler->map->x - filler->token->x + 1))
 		{
 			sum = check_place(filler, i, j);
-			if ((sum > 0) && (flag == 1 || sum < min))
+			if ((sum > 0) && (flag == 1 || sum < min) && i !=0 && j != 0)
 			{
 				flag = 0;
 				min = sum;

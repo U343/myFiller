@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/14 14:32:18 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/14 15:13:28 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int		main(void)
 			free_buff(filler->token);
 			ft_strdel(&line);
 		}
+		if (coords[0] == 0 && coords[1] == 0)
+			break;
 	}
 	close_file(fd);
 	ft_strdel(&line);
 	free_filler(filler);
-	
-	write_trace_hot_map(filler, fp);
 	close_file(fp);
 	return (0);
 }

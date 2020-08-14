@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 15:16:35 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/14 14:00:53 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/14 14:04:01 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,5 @@ void	free_map(t_map *map)
 
 void	free_filler(t_filler *filler)
 {
-	free_map(filler->map);
-	free_map(filler->token);
 	free(filler);
 }
