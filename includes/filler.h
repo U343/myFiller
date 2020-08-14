@@ -59,6 +59,7 @@ void					free_filler(t_filler *filler);
 */
 
 int						read_map(t_map *map, int offset, char *line);
+int						cut_dot(t_map *token);
 void					create_hot_map(t_filler *filler);
 void					find_place(t_filler *filler, int coords[2]);
 
