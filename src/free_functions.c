@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 15:16:35 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/08 13:05:18 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/14 14:00:53 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,22 @@
  * I don't know why i created this function
 */
 
-void	free_buff(char **buff)
+void	free_buff(t_map *map)
 {
 	int i;
 
 	i = 0;
-	while (buff[i])
+	while (i < map->y)
+		free(map->map[i++]);
+	free(map->map);
+}
+
+void	free_int_buff(int **buff, t_map *map)
+{
+	int i;
+	
+	i = 0;
+	while (i < map->y)
 		free(buff[i++]);
 	free(buff);
 }

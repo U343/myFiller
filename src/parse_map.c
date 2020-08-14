@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:05:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/08 13:38:10 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/08 17:31:24 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,10 @@
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
-int		read_map_size(t_map *map)
+int		read_map_size(t_map *map, char *line)
 {
-	char	*line;
-
-	if (get_next_line(DESCRIPTOR, &line) == -1)
-		return (-1);
 	map->y = ft_atoi(ft_strchr(line, SPACE_SYMBOL));
 	map->x = ft_atoi(ft_strrchr(line, SPACE_SYMBOL));
-	free(line);
 	return (0);
 }
 
@@ -44,13 +39,14 @@ int		read_map_size(t_map *map)
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
-int		read_map(t_map *map, int offset)
+int		read_map(t_map *map, int offset, char *line)
 {
 	int 	i;
 	char	*str;
 
 	i = -1;
-	read_map_size(map);
+	read_map_size(map, line);
+	str = NULL;
 	if (!(map->map = (char **)malloc(sizeof(char *) * map->y)))
 		return (-1);
 	if (offset == 4)

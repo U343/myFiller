@@ -49,7 +49,8 @@ int						init_hot_map(t_filler *filler);
 **Functions for free memory
 */
 
-void					free_buff(char **buff);
+void					free_buff(t_map *map);
+void					free_int_buff(int **buff, t_map *map);
 void					free_map(t_map *map);
 void					free_filler(t_filler *filler);
 
@@ -57,7 +58,8 @@ void					free_filler(t_filler *filler);
 **Parse functions
 */
 
-int						read_map(t_map *map, int offset);
+int						read_map(t_map *map, int offset, char *line);
 void					create_hot_map(t_filler *filler);
+void					find_place(t_filler *filler, int coords[2]);
 
 #endif

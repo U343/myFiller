@@ -23,7 +23,8 @@ SRC_FILES = main.c \
 			parse_map.c \
 			init_functions.c \
 			free_functions.c \
-			create_hot_map.c
+			create_hot_map.c \
+			find_place.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
