@@ -15,6 +15,9 @@
 /*
 **This function init struct t_man
 **struct use for a token and for the main map
+ *
+** start and end coords use only for token
+ *
 */
 
 static t_map		*init_map()
@@ -25,6 +28,10 @@ static t_map		*init_map()
 		return (NULL);
 	tmp->x = 0;
 	tmp->y = 0;
+	tmp->start_x = -1;
+	tmp->start_y = -1;
+	tmp->end_x = -1;
+	tmp->end_y = -1;
 	tmp->map = NULL;
 	return (tmp);
 }

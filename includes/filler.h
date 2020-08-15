@@ -10,21 +10,25 @@
 **-----------------------------------Structs------------------------------------
 */
 
-typedef struct			s_map
+typedef struct		s_map
 {
-	int					x;
-	int 				y;
-	char				**map;
-}						t_map;
+	int				x;
+	int 			y;
+	int 			start_x;
+	int 			start_y;
+	int 			end_x;
+	int 			end_y;
+	char			**map;
+}					t_map;
 
-typedef struct			s_filler
+typedef struct		s_filler
 {
-	char				player;
-	char				enemy;
-	t_map				*map;
-	t_map				*token;
-	int					**hot_map;
-}						t_filler;
+	char			player;
+	char			enemy;
+	t_map			*map;
+	t_map			*token;
+	int				**hot_map;
+}					t_filler;
 
 /*
 **----------------------------------Functions-----------------------------------
@@ -33,35 +37,33 @@ typedef struct			s_filler
 **Trace functions
 */
 
-FILE					*open_file();
-void					close_file(FILE *fp);
-int						write_trace(FILE *fp, char *str);
-void					write_trace_hot_map(t_filler *filler, FILE *fp);
+FILE				*open_file();
+void				close_file(FILE *fp);
+int					write_trace(FILE *fp, char *str);
+void				write_trace_hot_map(t_filler *filler, FILE *fp);
 
 /*
 **Init functions
 */
 
-t_filler				*init_struct();
-int						init_hot_map(t_filler *filler);
+t_filler			*init_struct();
+int					init_hot_map(t_filler *filler);
 
 /*
 **Functions for free memory
 */
 
-void					free_buff(t_map *map);
-void					free_int_buff(int **buff, t_map *map);
-void					free_map(t_map *map);
-void					free_filler(t_filler *filler);
+void				free_buff(t_map *map);
+void				free_int_buff(int **buff, t_map *map);
+void				free_filler(t_filler *filler);
 
 /*
-**Parse functions
+**Main functions
 */
 
-int						read_map(t_map *map, int offset, char *line);
-int						cut_dot(t_map *token, int coords_start[2], int
-coords_end[2]);
-void					create_hot_map(t_filler *filler);
-int						find_place(t_filler *filler, int coords[2]);
+int					read_map(t_map *map, int offset, char *line);
+int					cut_dot(t_map *token);
+int					find_place(t_filler *filler, int coords[2]);
+void				create_hot_map(t_filler *filler);
 
 #endif

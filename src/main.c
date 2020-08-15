@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/15 15:20:22 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/15 16:09:20 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,21 @@ int		main(void)
 			read_map(filler->map, 4, line);
 			init_hot_map(filler);
 			create_hot_map(filler);
-			ft_strdel(&line);
 		}
 		else if (ft_strncmp("Piece ", line, 6) == 0)
 		{
 			read_map(filler->token, 0, line);
-			//cut_dot(filler->token, coords_start, coords_end);
+			cut_dot(filler->token);
 			flag = find_place(filler, coords);
-			ft_putnbr(coords[1]);
+			ft_putnbr(coords[1] - filler->token->start_y);
 			ft_putchar(' ');
-			ft_putnbr(coords[0]);
+			ft_putnbr(coords[0] - filler->token->start_x);
 			ft_putchar('\n');
 			free_int_buff(filler->hot_map, filler->map);
 			free_buff(filler->map);
 			free_buff(filler->token);
-			ft_strdel(&line);
 		}
+		ft_strdel(&line);
 		if (flag == 1)
 			break;
 	}

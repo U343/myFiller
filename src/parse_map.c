@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:05:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/15 14:21:00 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/15 14:58:37 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		read_map(t_map *map, int offset, char *line)
 	return (0);
 }
 
-static void	check_size(t_map *token, int coords_start[2], int coords_end[2])
+static void	check_size(t_map *token)
 {
 	int		i;
 	int 	j;
@@ -79,51 +79,51 @@ static void	check_size(t_map *token, int coords_start[2], int coords_end[2])
 		{
 			if (token->map[i][j] == TOKEN_FILLED_SYMBOL)
 			{
-				coords_start[0] = (j < coords_start[0] ? j : coords_start[0]);
-				coords_start[1] = (i < coords_start[1] ? i : coords_start[1]);
-				coords_end[0] = (j > coords_end[0] ? j : coords_end[0]);
-				coords_end[1] = (i > coords_end[1] ? i : coords_end[1]);
+				token->start_x = (j < token->start_x ? j : token->start_x);
+				token->start_y = (i < token->start_y ? i : token->start_y);
+				token->end_x = (j > token->end_x ? j : token->end_x);
+				token->end_y = (i > token->end_y ? i : token->end_y);
 			}
 		}
 	}
 }
 
-int		filler_new_token(t_map *token, int start[2], int end[2], char ***res)
+int		filler_new_token(t_map *token, char ***res)
 {
 	int	i;
 	int	j;
 	int	x;
 	int	y;
 
-	i = start[1] - 1;
+	i = token->start_y - 1;
 	y = 0;
-	while (++i <= end[1])
+	while (++i <= token->end_y)
 	{
-		j = start[0] - 1;
+		j = token->start_x - 1;
 		x = 0;
-		if (!((*res)[y] = (char *)malloc(sizeof(char) * (end[0] - j))))
+		if (!((*res)[y] = (char *)malloc(sizeof(char) * (token->end_x - j))))
 			return (-1);
-		while (++j <= end[0])
+		while (++j <= token->end_x)
 			(*res)[y][x++] = token->map[i][j];
 		y++;
 	}
 	return (0);
 }
 
-int		cut_dot(t_map *token, int coords_start[2], int coords_end[2])
+int		cut_dot(t_map *token)
 {
 	int 	size;
 	char	**res;
 
-	coords_start[0] = token->x;
-	coords_start[1] = token->y;
-	coords_end[0] = 0;
-	coords_end[1] = 0;
-	check_size(token, coords_start, coords_end);
-	size = coords_end[1] - coords_start[1] + 1;
+	token->start_x = token->x;
+	token->start_y = token->y;
+	token->end_x = 0;
+	token->end_y = 0;
+	check_size(token);
+	size = token->end_y - token->start_y + 1;
 	if (!(res = (char **)malloc(sizeof(char *) * size)))
 		return (-1);
-	if (filler_new_token(token, coords_start, coords_end, &res) == -1)
+	if (filler_new_token(token, &res) == -1)
 		return (-1);
 	free_buff(token);
 	token->map = res;
