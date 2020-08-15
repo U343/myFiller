@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/14 15:15:45 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/15 15:20:22 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,15 @@ int		read_start(t_filler *map)
 int		main(void) 
 {
 	t_filler	*filler;
-	FILE		*fp;
 	char		*line;
 	int 		coords[2];
-	FILE		*fd;
+	int 		flag;
 
-	fd = open_file();
-	
-	fp = open_file();
 	if (!(filler = init_struct()))
 		return (1);
 	if (read_start(filler) == -1)
 		return (1);
-	line = ft_strnew(1000);
+	flag = 0;
 	while (get_next_line(DESCRIPTOR, &line) > -1)
 	{
 		if (ft_strncmp("Plateau ", line, 8) == 0)
@@ -56,31 +52,28 @@ int		main(void)
 			read_map(filler->map, 4, line);
 			init_hot_map(filler);
 			create_hot_map(filler);
-			write_trace_hot_map(filler, fd);
-			write_trace(fd, "\n\n");
 			ft_strdel(&line);
 		}
 		else if (ft_strncmp("Piece ", line, 6) == 0)
 		{
 			read_map(filler->token, 0, line);
-			cut_dot(filler->token);
-			find_place(filler, coords);
-			ft_putnbr(coords[0]);
-			ft_putchar(' ');
+			//cut_dot(filler->token, coords_start, coords_end);
+			flag = find_place(filler, coords);
 			ft_putnbr(coords[1]);
+			ft_putchar(' ');
+			ft_putnbr(coords[0]);
 			ft_putchar('\n');
 			free_int_buff(filler->hot_map, filler->map);
 			free_buff(filler->map);
 			free_buff(filler->token);
 			ft_strdel(&line);
 		}
-		if (coords[0] == 0 && coords[1] == 0)
+		if (flag == 1)
 			break;
 	}
-	close_file(fd);
-	ft_strdel(&line);
+	if (line)
+		ft_strdel(&line);
 	free_filler(filler);
-	close_file(fp);
 	return (0);
 }
 

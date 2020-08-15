@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:05:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/14 17:50:50 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/15 14:21:00 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ static void	check_size(t_map *token, int coords_start[2], int coords_end[2])
 			if (token->map[i][j] == TOKEN_FILLED_SYMBOL)
 			{
 				coords_start[0] = (j < coords_start[0] ? j : coords_start[0]);
-				coords_start[1] = (i < coords_start[0] ? i : coords_start[0]);
+				coords_start[1] = (i < coords_start[1] ? i : coords_start[1]);
 				coords_end[0] = (j > coords_end[0] ? j : coords_end[0]);
-				coords_end[1] = (i > coords_end[0] ? i : coords_end[0]);
+				coords_end[1] = (i > coords_end[1] ? i : coords_end[1]);
 			}
 		}
 	}
 }
 
-int		filler_new_token(t_map *token, int start[2], int end[2], char **res)
+int		filler_new_token(t_map *token, int start[2], int end[2], char ***res)
 {
 	int	i;
 	int	j;
@@ -97,22 +97,21 @@ int		filler_new_token(t_map *token, int start[2], int end[2], char **res)
 
 	i = start[1] - 1;
 	y = 0;
-	while (++i < end[1])
+	while (++i <= end[1])
 	{
 		j = start[0] - 1;
 		x = 0;
-		if (!(res[y++] = (char *)malloc(sizeof(char) * (end[0] - j))))
+		if (!((*res)[y] = (char *)malloc(sizeof(char) * (end[0] - j))))
 			return (-1);
-		while (++j < end[0])
-			res[y][x++] = token->map[i][j];
+		while (++j <= end[0])
+			(*res)[y][x++] = token->map[i][j];
+		y++;
 	}
 	return (0);
 }
 
-int		cut_dot(t_map *token)
+int		cut_dot(t_map *token, int coords_start[2], int coords_end[2])
 {
-	int		coords_start[2];
-	int 	coords_end[2];
 	int 	size;
 	char	**res;
 
@@ -121,12 +120,12 @@ int		cut_dot(t_map *token)
 	coords_end[0] = 0;
 	coords_end[1] = 0;
 	check_size(token, coords_start, coords_end);
-	size = coords_end[1] - coords_start[1] - 1;
+	size = coords_end[1] - coords_start[1] + 1;
 	if (!(res = (char **)malloc(sizeof(char *) * size)))
 		return (-1);
-	if (!(filler_new_token(token, coords_start, coords_end, res)))
+	if (filler_new_token(token, coords_start, coords_end, &res) == -1)
 		return (-1);
-	free_map(token);
+	free_buff(token);
 	token->map = res;
 	res = NULL;
 	return (0);

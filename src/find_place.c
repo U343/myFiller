@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 16:10:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/14 15:50:30 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/15 15:03:43 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int 	check_place(t_filler *filler, int m, int n)
 		return (0);
 }
 
-void		find_place(t_filler *filler, int coords[2])
+int		find_place(t_filler *filler, int coords[2])
 {
 	int 	i;
 	int 	j;
@@ -71,9 +71,10 @@ void		find_place(t_filler *filler, int coords[2])
 			{
 				flag = 0;
 				min = sum;
-				coords[0] = i;
-				coords[1] = j;
+				coords[0] = j;
+				coords[1] = i;
 			}
 		}
 	}
+	return (flag);
 }
