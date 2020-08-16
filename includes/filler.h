@@ -53,7 +53,7 @@ int					init_hot_map(t_filler *filler);
 **Functions for free memory
 */
 
-void				free_buff(t_map *map);
+void				free_buff(t_map *map, int identifier);
 void				free_int_buff(int **buff, t_map *map);
 void				free_filler(t_filler *filler);
 

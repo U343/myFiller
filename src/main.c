@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/15 16:09:20 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/16 13:41:06 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int		main(void)
 			ft_putnbr(coords[0] - filler->token->start_x);
 			ft_putchar('\n');
 			free_int_buff(filler->hot_map, filler->map);
-			free_buff(filler->map);
-			free_buff(filler->token);
+			free_buff(filler->map, MAP_IDENTIFIER);
+			free_buff(filler->token, TOKEN_IDENTIFIER);
 		}
 		ft_strdel(&line);
 		if (flag == 1)

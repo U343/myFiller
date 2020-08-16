@@ -6,19 +6,20 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 15:16:35 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/15 15:23:34 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/16 14:08:19 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	free_buff(t_map *map)
+void	free_buff(t_map *map, int identifier)
 {
 	int i;
 	int end;
 
 	i = 0;
-	end = (map->end_y == -1 ? map->y : map->end_y);
+	end = identifier == MAP_IDENTIFIER ? map->y : (map->end_y - map->start_y
+			+ 1);
 	while (i < end)
 		free(map->map[i++]);
 	free(map->map);

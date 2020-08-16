@@ -13,4 +13,7 @@
 #define ENEMY_CELL_NUMBER 0
 #define PLAYER_CELL_NUMBER -2
 
+#define MAP_IDENTIFIER 1
+#define TOKEN_IDENTIFIER 2
+
 #endif

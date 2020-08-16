@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:05:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/15 14:58:37 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/16 14:06:47 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int		cut_dot(t_map *token)
 		return (-1);
 	if (filler_new_token(token, &res) == -1)
 		return (-1);
-	free_buff(token);
+	free_buff(token, MAP_IDENTIFIER);
 	token->map = res;
 	res = NULL;
 	return (0);
