@@ -24,7 +24,8 @@ SRC_FILES = main.c \
 			init_functions.c \
 			free_functions.c \
 			create_hot_map.c \
-			find_place.c
+			find_place.c \
+			cut_token.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 15:16:35 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/16 14:08:19 by wanton           ###   ########.fr       */
+/*   Created: 2020/08/16 15:43:28 by wanton            #+#    #+#             */
+/*   Updated: 2020/08/16 16:52:46 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_buff(t_map *map, int identifier)
 void	free_int_buff(int **buff, t_map *map)
 {
 	int i;
-	
+
 	i = 0;
 	while (i < map->y)
 		free(buff[i++]);

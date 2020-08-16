@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/01 12:55:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/08 15:04:57 by wanton           ###   ########.fr       */
+/*   Created: 2020/08/16 15:32:11 by wanton            #+#    #+#             */
+/*   Updated: 2020/08/16 16:55:25 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	put_numbers(t_filler *filler, int num, int i, int j)
 static void	filler_empty_cells(t_filler *filler)
 {
 	int		i;
-	int 	j;
+	int		j;
 	int		tmp;
 
 	i = -1;

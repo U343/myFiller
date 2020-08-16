@@ -6,17 +6,17 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 16:10:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/15 16:15:14 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/16 15:38:09 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static int 	check_place(t_filler *filler, int m, int n)
+static int	check_place(t_filler *filler, int m, int n)
 {
-	int 	i;
-	int 	j;
-	int 	flag;
+	int		i;
+	int		j;
+	int		flag;
 	int		sum;
 	int		save_n;
 
@@ -49,13 +49,13 @@ static int 	check_place(t_filler *filler, int m, int n)
 		return (0);
 }
 
-int		find_place(t_filler *filler, int coords[2])
+int			find_place(t_filler *filler, int coords[2])
 {
-	int 	i;
-	int 	j;
-	int 	min;
+	int		i;
+	int		j;
+	int		min;
 	int		sum;
-	int 	flag;
+	int		flag;
 
 	coords[0] = 0;
 	coords[1] = 0;
