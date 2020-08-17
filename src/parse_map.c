@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 14:05:46 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/16 16:58:06 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/17 13:54:42 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,33 @@
 
 /*
 **Read map size and set parameters x and y for t_map
- *
+**
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
-int		read_map_size(t_map *map, char *line)
+static void	read_map_size(t_map *map, char *line)
 {
 	map->y = ft_atoi(ft_strchr(line, SPACE_SYMBOL));
 	map->x = ft_atoi(ft_strrchr(line, SPACE_SYMBOL));
-	return (0);
 }
 
 /*
 **This function read map and read token.
- *
+**
 ** int offset - this variable use when we read main map
 ** if we read token offset = 0
 ** if we read main map offset = 4, because first line with numbers not use for
 ** algorithm and firstly 4 number on another string also not use
- *
+**
 ** gnl() into (if (offset)) read and dell string with numbers
 ** str + offset - it is necessary to skip numbers at the beginning of str
- *
+**
 **					Returned: 0 if successful | -1 if error with malloc
 */
 
-int		read_map(t_map *map, int offset, char *line)
+int			read_map(t_map *map, int offset, char *line)
 {
-	int 	i;
+	int		i;
 	char	*str;
 
 	i = -1;
@@ -63,5 +62,26 @@ int		read_map(t_map *map, int offset, char *line)
 			return (-1);
 		free(str);
 	}
+	return (0);
+}
+
+/*
+**Read first line and check symbol which we will play
+**
+** 'O' is default for init_functions()
+*/
+
+int			read_start(t_filler *map)
+{
+	char *line;
+
+	if (get_next_line(DESCRIPTOR, &line) == -1)
+		return (-1);
+	if ((ft_strstr(line, "p2")))
+	{
+		map->player = SECOND_PLAYER_SYMBOL;
+		map->enemy = FIRST_PLAYER_SYMBOL;
+	}
+	free(line);
 	return (0);
 }

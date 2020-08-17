@@ -6,11 +6,25 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 16:10:07 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/16 15:38:09 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/17 13:41:22 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
+static int	num(char symbol, int number, int *flag, int *sum)
+{
+	if (symbol == TOKEN_FILLED_SYMBOL)
+	{
+		if (number == PLAYER_CELL_NUMBER && *flag == 1)
+			*flag = 0;
+		else if (number != ENEMY_CELL_NUMBER && number != PLAYER_CELL_NUMBER)
+			*sum += number;
+		else
+			return (-1);
+	}
+	return (0);
+}
 
 static int	check_place(t_filler *filler, int m, int n)
 {
@@ -30,35 +44,31 @@ static int	check_place(t_filler *filler, int m, int n)
 		n = save_n;
 		while (++j <= (filler->token->end_x - filler->token->start_x))
 		{
-			if (filler->token->map[i][j] == TOKEN_FILLED_SYMBOL)
-			{
-				if (filler->hot_map[m][n] == PLAYER_CELL_NUMBER && flag == 1)
-					flag = 0;
-				else if (filler->map->map[m][n] == MAP_EMPTY_SYMBOL)
-					sum += filler->hot_map[m][n];
-				else
-					return (0);
-			}
-			n++;
+			if (num(filler->token->map[i][j], filler->hot_map[m][n++], &flag,
+		&sum) == -1)
+				return (0);
 		}
 		m++;
 	}
 	if (flag == 0)
 		return (sum);
-	else
-		return (0);
+	return (0);
 }
 
-int			find_place(t_filler *filler, int coords[2])
+static void	init_coords(int coords[3], int x, int y)
+{
+	coords[0] = x;
+	coords[1] = y;
+}
+
+int			find_place(t_filler *filler, int coords[3])
 {
 	int		i;
 	int		j;
 	int		min;
-	int		sum;
 	int		flag;
 
-	coords[0] = 0;
-	coords[1] = 0;
+	init_coords(coords, 0, 0);
 	i = -1;
 	flag = 1;
 	while (++i < (filler->map->y - (filler->token->end_y -
@@ -68,13 +78,12 @@ int			find_place(t_filler *filler, int coords[2])
 		while (++j < (filler->map->x - (filler->token->end_x -
 		filler->token->start_x)))
 		{
-			sum = check_place(filler, i, j);
-			if ((sum > 0) && (flag == 1 || sum < min))
+			coords[2] = check_place(filler, i, j);
+			if ((coords[2] > 0) && (flag == 1 || coords[2] < min))
 			{
 				flag = 0;
-				min = sum;
-				coords[0] = j;
-				coords[1] = i;
+				min = coords[2];
+				init_coords(coords, j, i);
 			}
 		}
 	}

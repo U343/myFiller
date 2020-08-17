@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 15:32:11 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/16 16:55:25 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/17 12:54:11 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Check coords on valid. If coord placed into map and she is empty then coord
 ** is valid
- *
+**
 **        n, x, j
 ** -----------------
 **                 |
@@ -27,8 +27,8 @@
 
 static int	is_valid_coords(t_filler *filler, int i, int j, int *flag)
 {
-	int 	m;
-	int 	n;
+	int		m;
+	int		n;
 
 	m = filler->map->y;
 	n = filler->map->x;
@@ -44,7 +44,7 @@ static int	is_valid_coords(t_filler *filler, int i, int j, int *flag)
 
 /*
 ** Check and fill cells around cell with coords i, j
- *
+**
 ** i - 1  |  i - 1  |  i - 1
 ** j - 1  |         |  j + 1
 ** -------------------------
@@ -102,8 +102,8 @@ void		create_hot_map(t_filler *filler)
 {
 	int		flag;
 	int		num;
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 
 	flag = 1;
 	num = 1;

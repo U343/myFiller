@@ -5,3 +5,4 @@ resources/
 trace
 libft/libft.a
 wanton.filler
+src/write_trace.c

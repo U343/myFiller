@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 16:56:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/16 16:57:22 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/17 13:52:23 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 /*
 **This function init struct t_man
 **struct use for a token and for the main map
- *
-** start and end coords use only for token
- *
+**
+**start and end coords use only for token
 */
 
-static t_map		*init_map()
+static t_map	*init_map(void)
 {
 	t_map		*tmp;
-	
+
 	if (!(tmp = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);
 	tmp->x = 0;
@@ -43,7 +42,7 @@ static t_map		*init_map()
 ** replace on 'X'
 */
 
-t_filler		*init_struct()
+t_filler		*init_struct(void)
 {
 	t_filler	*tmp;
 
@@ -59,10 +58,10 @@ t_filler		*init_struct()
 	return (tmp);
 }
 
-int			init_hot_map(t_filler *filler)
+int				init_hot_map(t_filler *filler)
 {
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 
 	i = -1;
 	if (!(filler->hot_map = (int **)malloc(sizeof(int *) * filler->map->y)))

@@ -6,39 +6,61 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 15:28:41 by wanton            #+#    #+#             */
-/*   Updated: 2020/08/16 16:57:36 by wanton           ###   ########.fr       */
+/*   Updated: 2020/08/17 12:51:55 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-/*
-**Read first line and check symbol which we will play
-**
-** 'O' is default for init_functions()
-*/
-
-int		read_start(t_filler *map)
+static void	write_coords(int x_coord, int y_coord, int flag)
 {
-	char *line;
-
-	if (get_next_line(DESCRIPTOR, &line) == -1)
-		return (-1);
-	if ((ft_strstr(line, "p2")))
+	if (flag != 1)
 	{
-		map->player = SECOND_PLAYER_SYMBOL;
-		map->enemy = FIRST_PLAYER_SYMBOL;
+		ft_putnbr(y_coord);
+		ft_putchar(' ');
+		ft_putnbr(x_coord);
+		ft_putchar('\n');
 	}
-	free(line);
+	else
+		ft_putstr("0 0\n");
+}
+
+static int	call_map_functions(t_filler *filler, char *line, int offset)
+{
+	if (read_map(filler->map, offset, line) == -1)
+		return (-1);
+	if (init_hot_map(filler) == -1)
+		return (-1);
+	create_hot_map(filler);
 	return (0);
 }
 
-int		main(void) 
+static int	call_token_functions(t_filler *filler, char *line, int offset)
+{
+	int		coords[3];
+	int		flag;
+	int		x_coord;
+	int		y_coord;
+
+	if (read_map(filler->token, offset, line) == -1)
+		return (-1);
+	if (cut_dot(filler->token) == -1)
+		return (-1);
+	flag = find_place(filler, coords);
+	x_coord = coords[0] - filler->token->start_x;
+	y_coord = coords[1] - filler->token->start_y;
+	write_coords(x_coord, y_coord, flag);
+	free_int_buff(filler->hot_map, filler->map);
+	free_buff(filler->map, MAP_IDENTIFIER);
+	free_buff(filler->token, TOKEN_IDENTIFIER);
+	return (flag);
+}
+
+int			main(void)
 {
 	t_filler	*filler;
 	char		*line;
-	int 		coords[2];
-	int 		flag;
+	int			flag;
 
 	if (!(filler = init_struct()))
 		return (1);
@@ -48,31 +70,17 @@ int		main(void)
 	while (get_next_line(DESCRIPTOR, &line) > -1)
 	{
 		if (ft_strncmp("Plateau ", line, 8) == 0)
-		{
-			read_map(filler->map, 4, line);
-			init_hot_map(filler);
-			create_hot_map(filler);
-		}
+			flag = call_map_functions(filler, line, 4);
 		else if (ft_strncmp("Piece ", line, 6) == 0)
-		{
-			read_map(filler->token, 0, line);
-			cut_dot(filler->token);
-			flag = find_place(filler, coords);
-			ft_putnbr(coords[1] - filler->token->start_y);
-			ft_putchar(' ');
-			ft_putnbr(coords[0] - filler->token->start_x);
-			ft_putchar('\n');
-			free_int_buff(filler->hot_map, filler->map);
-			free_buff(filler->map, MAP_IDENTIFIER);
-			free_buff(filler->token, TOKEN_IDENTIFIER);
-		}
+			flag = call_token_functions(filler, line, 0);
 		ft_strdel(&line);
 		if (flag == 1)
-			break;
+			break ;
+		else if (flag == -1)
+			return (0);
 	}
 	if (line)
 		ft_strdel(&line);
 	free_filler(filler);
 	return (0);
 }
-
