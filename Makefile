@@ -6,7 +6,7 @@
 #    By: wanton <wanton@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/18 12:03:06 by wanton            #+#    #+#              #
-#    Updated: 2020/08/17 16:11:10 by wanton           ###   ########.fr        #
+#    Updated: 2020/08/17 16:42:50 by wanton           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,11 @@ HEADERS = $(addprefix $(HEAD_PATH), $(HEADERS_LIST))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJ)
+$(NAME): $(OBJ)
+		make -C $(LIB_PATH)
 		gcc $(FLAGS) $(OBJ)  $(INC) -L $(LIB_PATH) -lft -o $(NAME)
+
+$(OBJ): | $(OBJECTS_DIRECTORY)
 
 $(OBJECTS_DIRECTORY):
 	@mkdir -p $(OBJECTS_DIRECTORY)
@@ -53,8 +56,6 @@ $(OBJECTS_DIRECTORY):
 $(OBJECTS_DIRECTORY)%.o: $(SRC_PATH)%.c $(HEADERS)
 		gcc $(FLAGS)  $(INC) -c $< -o $@
 
-$(LIBFT):
-		make -C $(LIB_PATH)
 
 clean:
 		make -C $(LIB_PATH)/ clean
