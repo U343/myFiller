@@ -6,7 +6,7 @@
 #    By: wanton <wanton@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/18 12:03:06 by wanton            #+#    #+#              #
-#    Updated: 2020/08/15 13:52:46 by wanton           ###   ########.fr        #
+#    Updated: 2020/08/17 16:11:10 by wanton           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,10 @@ NAME = wanton.filler
 
 SRC_PATH = ./src/
 LIB_PATH = ./libft/
-OBJ_PATH = ./obj/
 INC_PATH = ./includes/ $(LIB_PATH)
+HEAD_PATH = ./includes/
+
+LIBFT = $(LIBFT_PATH)libft.a
 
 SRC_FILES = main.c \
 			get_next_line.c \
@@ -26,27 +28,37 @@ SRC_FILES = main.c \
 			find_place.c \
 			cut_token.c
 
-OBJ_FILES = $(SRC_FILES:.c=.o)
+HEADERS_LIST = filler.h \
+				get_next_line.h \
+				constants.h
+
+OBJECTS_DIRECTORY = objects/
+OBJECTS_LIST = $(patsubst %.c, %.o, $(SRC_FILES))
+OBJ = $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 
 FLAGS = -Wall -Wextra -Werror
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_FILES))
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_FILES))
 INC = $(addprefix -I, $(INC_PATH))
+HEADERS = $(addprefix $(HEAD_PATH), $(HEADERS_LIST))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-		make -C $(LIB_PATH)
+$(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJ)
 		gcc $(FLAGS) $(OBJ)  $(INC) -L $(LIB_PATH) -lft -o $(NAME)
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-		mkdir -p $(OBJ_PATH)
+$(OBJECTS_DIRECTORY):
+	@mkdir -p $(OBJECTS_DIRECTORY)
+
+$(OBJECTS_DIRECTORY)%.o: $(SRC_PATH)%.c $(HEADERS)
 		gcc $(FLAGS)  $(INC) -c $< -o $@
+
+$(LIBFT):
+		make -C $(LIB_PATH)
 
 clean:
 		make -C $(LIB_PATH)/ clean
-		/bin/rm -rf $(OBJ_PATH)
+		/bin/rm -rf $(OBJECTS_DIRECTORY)
 
 fclean: clean
 		make -C $(LIB_PATH)/ fclean
@@ -54,4 +66,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re $(NAME)
+.PHONY: all clean fclean re
